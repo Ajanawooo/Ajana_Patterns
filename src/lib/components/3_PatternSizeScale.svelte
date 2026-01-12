@@ -14,6 +14,11 @@
 	const squareSize = 1000 / squareCount;
 
 	let offset = $state(0);
+	let offset2 = $state(0);
+	
+	// Zweiter Offset für zusätzliche Zeilenverschiebung in X-Richtung
+	let zeilenVerschiebungX = $derived(offset2 % 150);
+	
 	let verschiebungX = $derived(offset % 150);
 	let verschiebungY = $derived(calculateVerschiebungY(verschiebungX));
 	// $inspect(verschiebungY);
@@ -41,18 +46,19 @@
 	);
 
 	function calculateVerschiebungY(verschiebungX) {
+		let combinedVerschiebungX = (verschiebungX - zeilenVerschiebungX + 150) % 150;
 		// verschiebungX sollte immer zwischen 0 und 150 liegen
-		if (verschiebungX >= 0 && verschiebungX < 50 / 3) {
-			return 123 + (verschiebungX * 1) / 2;
-		} else if (verschiebungX >= 50 / 3 && verschiebungX < 50) {
-			return 100 + verschiebungX * 2;
-		} else if (verschiebungX >= 50 && verschiebungX < 83.3333) {
-			return 200 - (verschiebungX - 50) * 2;
-		} else if (verschiebungX >= 83.3333 && verschiebungX < 127) {
-			return 175 + verschiebungX * (-1 / 2);
-		} else if (verschiebungX >= 127 && verschiebungX < 150) {
-			return 50 + (verschiebungX * 1) / 2;
-		} else if (verschiebungX === 150) {
+		if (combinedVerschiebungX >= 0 && combinedVerschiebungX < 50 / 3) {
+			return 123 + (combinedVerschiebungX * 1) / 2;
+		} else if (combinedVerschiebungX >= 50 / 3 && combinedVerschiebungX < 50) {
+			return 100 + combinedVerschiebungX * 2;
+		} else if (combinedVerschiebungX >= 50 && combinedVerschiebungX < 83.3333) {
+			return 200 - (combinedVerschiebungX - 50) * 2;
+		} else if (combinedVerschiebungX >= 83.3333 && combinedVerschiebungX < 127) {
+			return 175 + combinedVerschiebungX * (-1 / 2);
+		} else if (combinedVerschiebungX >= 127 && combinedVerschiebungX < 150) {
+			return 50 + (combinedVerschiebungX * 1) / 2;
+		} else if (combinedVerschiebungX === 150) {
 			return 125;
 		}
 
@@ -67,11 +73,12 @@
 <div id="control">
 	<div>
 		<input type="range" min="0" max="300" bind:value={offset} />
-		<label>{offset}</label>
+		<span>{offset}</span>
 	</div>
+	
 	<div>
-		<input type="range" min="0" max="300" bind:value={offset} />
-		<label>{offset}</label>
+		<input type="range" min="0" max="300" bind:value={offset2} />
+		<span>{offset2}</span>
 	</div>
 	
 </div>
@@ -95,17 +102,17 @@
 			/> -->
 
 			<g
-				transform="translate({verschiebungX * (j - 0)}, {50 +
+				transform="translate({verschiebungX * (j - 0) - zeilenVerschiebungX}, {50 +
 					(j - 5) * verschiebungY})"
 			>
-				{#each Array(20) as _, i}
+				{#each Array(30) as _, i}
 					<polygon
-						transform="translate({(i - 10) * 150}, 0)"
+						transform="translate({(i - 15) * 150}, 0)"
 						points="0 0, -50 0, 0 -100"
 						fill="#FF6B35"
 					/>
 					<polygon
-						transform="translate({(i - 10) * 150}, 0) rotate(90)"
+						transform="translate({(i - 15) * 150}, 0) rotate(90)"
 						points="0 0, -50 0, 0 -100"
 						fill="#D84315"
 					/>
@@ -115,15 +122,15 @@
 				transform="translate({verschiebungX * (j - 0)}, {50 +
 					(j - 5) * verschiebungY})"
 			>
-				{#each Array(20) as _, i}
+				{#each Array(30) as _, i}
 					<polygon
-						transform="translate({50 + (i - 10) * 150}, 0)"
+						transform="translate({50 + (i - 15) * 150}, 0)"
 						points="0 0, 100 0, 0 50"
 						fill="#FF8C42"
 					/>
 					<polygon
 						transform="translate({50 +
-							(i - 10) * 150}, 0) rotate(90)"
+							(i - 15) * 150}, 0) rotate(90)"
 						points="0 0, 100 0, 0 50"
 						fill="#E65100"
 					/>
@@ -131,23 +138,6 @@
 			</g>
 		{/each}
 
-		<!-- Pattern Schleife -->
-
-		{#each Array(10) as _, row}
-			{#each Array(10) as _, i}
-				<!-- Rosa Dreieck -->
-				<!-- <polygon 
-					points="{squareSize * (i * 2) + (row % 2) * squareSize},{squareSize * 2 * row} {squareSize * (i * 2 + 1) + (row % 2) * squareSize},{squareSize * 2 * row} {squareSize * (i * 2) + (row % 2) * squareSize},{squareSize * 2 + squareSize * 2 * row}" 
-					fill="hotpink" 
-				/>
-				 -->
-				<!-- Gelbes Dreieck -->
-				<!-- <polygon 
-					points="{squareSize * (i * 2 + 1) + (row % 2) * squareSize},{squareSize * 2 * row} {squareSize * (i * 2 + 2) + (row % 2) * squareSize},{squareSize * 2 * row} {squareSize * (i * 2 + 1) + (row % 2) * squareSize},{squareSize * 2 + squareSize * 2 * row}" 
-					fill="khaki" 
-				/> -->
-			{/each}
-		{/each}
 	</svg>
 </div>
 
