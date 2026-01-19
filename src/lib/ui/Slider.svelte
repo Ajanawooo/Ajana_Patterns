@@ -174,17 +174,20 @@
 	.slider {
 		width: 100%;
 		margin-bottom: 1rem;
+		padding: 10px;
+		background: #fff;
+		border-radius: 4px;
 	}
 	.label {
 		font-size: 0.75rem;
 		margin-top: 0;
 		margin-bottom: 0.3rem;
-		color: #ccc;
+		color: #333;
 	}
 	.track {
 		position: relative;
 		height: 20px;
-		background: #444;
+		background: #e0e0e0;
 		border-radius: 4px;
 		/* prevent browser touch gestures (scroll/zoom) from interfering with dragging */
 		touch-action: none;
@@ -195,8 +198,8 @@
 		left: 1px;
 		width: 45px;
 		height: 20px;
-		background: #666;
-		border: 1px solid #777;
+		background: #999;
+		border: 1px solid #888;
 		border-radius: 4px;
 		text-align: center;
 		line-height: 18px;
