@@ -11,12 +11,12 @@
 	// Pattern-Daten
 	const patterns = [
 		{
-			name: 'Pattern 1: Rect',
+			name: 'Original Pattern',
 			description: 'Einfaches Rechteck-Pattern',
 			component: Pattern1
 		},
 		{
-			name: 'Pattern 2: Rect Struct',
+			name: 'Pattern 2: Form Verändern',
 			description: 'Rechteck-Pattern mit Struktur',
 			component: Pattern2
 		},
@@ -74,10 +74,10 @@
 	.sidebar-left {
 		width: 250px;
 		background-color: #f0f0f0;
-		padding: 20px;
+		padding: 0px;
 		display: flex;
 		flex-direction: column;
-		gap: 10px;
+		gap: 0px;
 		overflow-y: auto;
 	}
 
@@ -85,7 +85,7 @@
 		padding: 15px;
 		background-color: white;
 		border: 1px solid #ddd;
-		border-radius: 8px;
+		border-radius: 0px;
 		cursor: pointer;
 		text-align: left;
 		font-size: 14px;

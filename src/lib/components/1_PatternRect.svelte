@@ -152,38 +152,7 @@
 	/>
 
 
-	<Slider
-		bind:value={strecken}
-		min={-100}
-		max={25}
-		step={1}
-		label="Strecken"
-		snapValues={[-100, -75, -50, -25, 0, 25]}
-	/>
-	<Slider
-		bind:value={stauchen}
-		min={-50}
-		max={50}
-		step={1}
-		label="Stauchen"
-		snapValues={[-50, -25, 0, 25, 50]}
-	/>
-	<Slider
-		bind:value={strecken2}
-		min={-100}
-		max={50}
-		step={1}
-		label="Strecken2"
-		snapValues={[-100, -75, -50, -25, 0, 25, 50]}
-	/>
-	<Slider
-		bind:value={stauchen2}
-		min={-50}
-		max={50}
-		step={1}
-		label="Stauchen2"
-		snapValues={[-50, -25, 0, 25, 50]}
-	/>
+	
 
 
 

@@ -6,6 +6,7 @@
 	const squareSize = 1000 / squareCount;
 
 	let offset = $state(0);
+	let offsetY = $state(150);
 	let offset2 = $state(0);
 	let strecken = $state(0);
 	let stauchen = $state(0);
@@ -16,7 +17,7 @@
 	let zeilenVerschiebungX = $derived(offset2 % 150);
 
 	let verschiebungX = $derived(offset % 150);
-	let verschiebungY = $derived(calculateVerschiebungY(verschiebungX));
+	let verschiebungY = $derived(offsetY);
 	// $inspect(verschiebungY);
 
 	// berechne eine farbe abhängig von verschiebungY
@@ -27,7 +28,7 @@
 		chroma
 			.scale([startColor1, endColor1])
 			.mode("oklch")
-			.domain([110, 200])(verschiebungY)
+			.domain([110, 200])(offsetY)
 			.hex(),
 	);
 
@@ -37,54 +38,19 @@
 		chroma
 			.scale([startColor2, endColor2])
 			.mode("oklch")
-			.domain([110, 200])(verschiebungY)
+			.domain([110, 200])(offsetY)
 			.hex(),
 	);
 
-	function calculateVerschiebungY(verschiebungX) {
-		let combinedVerschiebungX =
-			(verschiebungX - zeilenVerschiebungX - strecken - strecken2 + 150) % 150;
-		// verschiebungX sollte immer zwischen 0 und 150 liegen
-		if (combinedVerschiebungX >= 0 && combinedVerschiebungX < 50 / 3) {
-			return 123 + (combinedVerschiebungX * 1) / 2;
-		} else if (
-			combinedVerschiebungX >= 50 / 3 &&
-			combinedVerschiebungX < 50
-		) {
-			return 100 + combinedVerschiebungX * 2;
-		} else if (
-			combinedVerschiebungX >= 50 &&
-			combinedVerschiebungX < 83.3333
-		) {
-			return 200 - (combinedVerschiebungX - 50) * 2;
-		} else if (
-			combinedVerschiebungX >= 83.3333 &&
-			combinedVerschiebungX < 127
-		) {
-			return 175 + combinedVerschiebungX * (-1 / 2);
-		} else if (
-			combinedVerschiebungX >= 127 &&
-			combinedVerschiebungX < 150
-		) {
-			return 50 + (combinedVerschiebungX * 1) / 2;
-		} else if (combinedVerschiebungX === 150) {
-			return 125;
-		}
 
-		return 150;
-	}
-
-	function calculateSizeCords1(xi, yi) {}
-
-	function calculateSizeCords2(xi, yi) {}
 </script>
 
 <div class="svg-container">
 	<svg viewBox="0 -450 1000 1000" class="svg-canvas">
-		{#each Array(11) as _, j}
+		{#each Array(30) as _, j}
 			<rect
 				x="0"
-				y={50 + (j - 5) * verschiebungY}
+				y={50 + (j - 15) * verschiebungY}
 				width={1000}
 				height={verschiebungY}
 				fill={j % 2 ? color1 : color2}
@@ -92,7 +58,7 @@
 
 			<g
 				transform="translate({verschiebungX * (j - 0) -
-					zeilenVerschiebungX}, {50 + (j - 5) * verschiebungY})"
+					zeilenVerschiebungX}, {50 + (j - 15) * verschiebungY})"
 			>
 				{#each Array(30) as _, i}
 					<polygon
@@ -109,8 +75,9 @@
 				{/each}
 			</g>
 			<g
-				transform="translate({verschiebungX * (j - 0)}, {50 +
-					(j - 5) * verschiebungY})"
+				transform="translate({verschiebungX * (j - 0) +
+					zeilenVerschiebungX}, {50 +
+					(j - 15) * verschiebungY})"
 			>
 				{#each Array(30) as _, i}
 					<polygon
@@ -134,12 +101,11 @@
 
 <div id="control">
 	<Slider
-		bind:value={offset}
-		min={0}
+		bind:value={offsetY}
+		min={35}
 		max={300}
 		step={1}
-		label="Verschiebung X"
-		
+		label="Y Verschiebung"
 	/>
 
 	<Slider
@@ -170,16 +136,16 @@
 	/>
 	<Slider
 		bind:value={strecken2}
-		min={-100}
-		max={50}
+		min={-50}
+		max={75}
 		step={1}
 		label="Strecken2"
 		snapValues={[-100, -75, -50, -25, 0, 25, 50]}
 	/>
 	<Slider
 		bind:value={stauchen2}
-		min={-50}
-		max={50}
+		min={-100}
+		max={0}
 		step={1}
 		label="Stauchen2"
 		snapValues={[-50, -25, 0, 25, 50]}
@@ -194,7 +160,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: left;
-		justify-content: center;
+		justify-content: top;
 		gap: 15px;
 		margin: 15px;
 
