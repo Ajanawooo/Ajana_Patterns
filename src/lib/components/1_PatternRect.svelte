@@ -19,27 +19,9 @@
 	let verschiebungY = $derived(calculateVerschiebungY(verschiebungX));
 	// $inspect(verschiebungY);
 
-	// berechne eine farbe abhängig von verschiebungY
-	// verschiebungY ist zwischen ca 110 und 200, die farbe soll zwischen hellgrün (luminance 0.8) und dunkelgrün (luminance 0.3) wechseln
-	let startColor1 = chroma("#74C69D"); // Helles Grün
-	let endColor1 = chroma("#2D6A4F"); // Dunkleres Grün
-	let color1 = $derived(
-		chroma
-			.scale([startColor1, endColor1])
-			.mode("oklch")
-			.domain([110, 200])(verschiebungY)
-			.hex(),
-	);
-
-	let startColor2 = chroma("#2D6A4F"); // Dunkleres Grün (umgedreht)
-	let endColor2 = chroma("#74C69D"); // Helles Grün (umgedreht)
-	let color2 = $derived(
-		chroma
-			.scale([startColor2, endColor2])
-			.mode("oklch")
-			.domain([110, 200])(verschiebungY)
-			.hex(),
-	);
+	// Feste Hintergrundfarben - hell mit leichtem Kontrast
+	let color1 = "#F5F5F5"; // Sehr hellgrau
+	let color2 = "#E8E8E8"; // Hellgrau
 
 	function calculateVerschiebungY(verschiebungX) {
 		let combinedVerschiebungX =
@@ -99,12 +81,12 @@
 						class="triangle1"
 						transform="translate({(i - 15) * 150}, 0)"
 						points="0 0, {-50 -stauchen} 0, 0 {-100 - strecken}"
-						fill="#FF6B35"
+						fill='#2A2A2A'
 					/>
 					<polygon
 						transform="translate({(i - 15) * 150}, 0) rotate(90)"
 						points="0 0, {-50 - strecken2} 0, 0 {-100 - stauchen2}"
-						fill="#D84315"
+						fill="#404040"
 					/>
 				{/each}
 			</g>
@@ -117,14 +99,14 @@
 						class="triangle3"
 						transform="translate({50 + (i - 15) * 150}, 0)"
 						points="0 0, {100 + stauchen2} 0, 0 {50 + strecken2}"
-						fill="#FF8C42"
+						fill="#1A1A1A"
 					/>
 					<polygon
 						class="triangle2"
 						transform="translate({50 +
 							(i - 15) * 150}, 0) rotate(90)"
 						points="0 0, {100 + strecken} 0, 0 {50 + stauchen}"
-						fill="#E65100"
+						fill="#555555"
 					/>
 				{/each}
 			</g>
@@ -132,13 +114,13 @@
 	</svg>
 </div>
 
-<div id="control">
+<div class="sidebar-right">
 	<Slider
 		bind:value={offset}
 		min={0}
 		max={300}
 		step={1}
-		label="Verschiebung X"
+		label="Zeilenbewegung"
 		
 	/>
 
@@ -147,7 +129,7 @@
 		min={0}
 		max={300}
 		step={1}
-		label="Zeilen Verschiebung"
+		label="Gruppenbewegung"
 		
 	/>
 

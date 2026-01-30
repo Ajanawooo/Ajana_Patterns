@@ -2,15 +2,13 @@
 	import chroma from "chroma-js";
 	import Slider from "$lib/ui/Slider.svelte";
 
-	const squareCount = 10;
-	const squareSize = 1000 / squareCount;
 
 	let offset = $state(0);
-	let offsetY = $state(150);
+	let offsetY = $state(123);
 	let offset2 = $state(0);
 	let strecken = $state(0);
-	let stauchen = $state(0);
 	let strecken2 = $state(0);
+	let stauchen = $state(0);
 	let stauchen2 = $state(0);
 
 	// Zweiter Offset für zusätzliche Zeilenverschiebung in X-Richtung
@@ -20,27 +18,9 @@
 	let verschiebungY = $derived(offsetY);
 	// $inspect(verschiebungY);
 
-	// berechne eine farbe abhängig von verschiebungY
-	// verschiebungY ist zwischen ca 110 und 200, die farbe soll zwischen hellgrün (luminance 0.8) und dunkelgrün (luminance 0.3) wechseln
-	let startColor1 = chroma("#74C69D"); // Helles Grün
-	let endColor1 = chroma("#2D6A4F"); // Dunkleres Grün
-	let color1 = $derived(
-		chroma
-			.scale([startColor1, endColor1])
-			.mode("oklch")
-			.domain([110, 200])(offsetY)
-			.hex(),
-	);
-
-	let startColor2 = chroma("#2D6A4F"); // Dunkleres Grün (umgedreht)
-	let endColor2 = chroma("#74C69D"); // Helles Grün (umgedreht)
-	let color2 = $derived(
-		chroma
-			.scale([startColor2, endColor2])
-			.mode("oklch")
-			.domain([110, 200])(offsetY)
-			.hex(),
-	);
+	// Feste Hintergrundfarben - hell mit leichtem Kontrast
+	let color1 = "#F5F5F5"; // Sehr hellgrau
+	let color2 = "#E8E8E8"; // Hellgrau
 
 
 </script>
@@ -65,12 +45,12 @@
 						class="triangle1"
 						transform="translate({(i - 15) * 150}, 0)"
 						points="0 0, {-50 -stauchen} 0, 0 {-100 - strecken}"
-						fill="#FF6B35"
+						fill="#2A2A2A"
 					/>
 					<polygon
 						transform="translate({(i - 15) * 150}, 0) rotate(90)"
 						points="0 0, {-50 - strecken2} 0, 0 {-100 - stauchen2}"
-						fill="#D84315"
+						fill="#404040"
 					/>
 				{/each}
 			</g>
@@ -84,14 +64,14 @@
 						class="triangle3"
 						transform="translate({50 + (i - 15) * 150}, 0)"
 						points="0 0, {100 + stauchen2} 0, 0 {50 + strecken2}"
-						fill="#FF8C42"
+						fill="#1A1A1A"
 					/>
 					<polygon
 						class="triangle2"
 						transform="translate({50 +
 							(i - 15) * 150}, 0) rotate(90)"
 						points="0 0, {100 + strecken} 0, 0 {50 + stauchen}"
-						fill="#E65100"
+						fill="#555555"
 					/>
 				{/each}
 			</g>
@@ -99,10 +79,10 @@
 	</svg>
 </div>
 
-<div id="control">
+<div class="sidebar-right">
 	<Slider
 		bind:value={offsetY}
-		min={35}
+		min={36}
 		max={300}
 		step={1}
 		label="Y Verschiebung"
@@ -113,7 +93,7 @@
 		min={0}
 		max={300}
 		step={1}
-		label="Zeilen Verschiebung"
+		label="X Verschiebung"
 		
 	/>
 
@@ -123,35 +103,34 @@
 		min={-100}
 		max={25}
 		step={1}
-		label="Strecken"
+		label="Vertikal Strecken Links"
 		snapValues={[-100, -75, -50, -25, 0, 25]}
 	/>
-	<Slider
-		bind:value={stauchen}
-		min={-50}
-		max={50}
-		step={1}
-		label="Stauchen"
-		snapValues={[-50, -25, 0, 25, 50]}
-	/>
-	<Slider
+		<Slider
 		bind:value={strecken2}
 		min={-50}
 		max={75}
 		step={1}
-		label="Strecken2"
+		label="Vertikal Strecken Rechts"
 		snapValues={[-100, -75, -50, -25, 0, 25, 50]}
 	/>
 	<Slider
-		bind:value={stauchen2}
-		min={-100}
-		max={0}
+		bind:value={stauchen}
+		min={-50}
+		max={100}
 		step={1}
-		label="Stauchen2"
-		snapValues={[-50, -25, 0, 25, 50]}
+		label="Horizontal Strecken Links"
+		snapValues={[-50, -25, 0, 25, 50, 75, 100]}
 	/>
 
-
+	<Slider
+		bind:value={stauchen2}
+		min={-50}
+		max={100}
+		step={1}
+		label="Horizontal Strecken Rechts"
+		snapValues={[-50, -25, 0, 25, 50, 75, 100]}
+	/>
 
 </div>
 

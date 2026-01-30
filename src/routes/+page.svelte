@@ -3,7 +3,8 @@
 	import Header from '$lib/components/Header.svelte';
 	import Pattern1 from '$lib/components/1_PatternRect.svelte';	
 	import Pattern2 from '$lib/components/2_PatternRectStruct.svelte';	
-	import Pattern3 from '$lib/components/3_PatternSizeScale.svelte';
+	import Pattern3 from '$lib/components/3_Colour.svelte';
+	import Pattern4 from '$lib/components/4_ColourAndForm.svelte';
 
 	// UI Pattern for controls (von dozenten)
 	import UiPattern from '$lib/components/1_ui_pattern.svelte';
@@ -12,22 +13,27 @@
 	const patterns = [
 		{
 			name: 'Original Pattern',
-			description: 'Einfaches Rechteck-Pattern',
+			description: 'Dreiecke mit spannender Verschiebung',
 			component: Pattern1
 		},
 		{
-			name: 'Pattern 2: Form Verändern',
-			description: 'Rechteck-Pattern mit Struktur',
+			name: 'Form Verändern',
+			description: 'Dreieck-Pattern mit Skalierung, Stauchung und Streckung',
 			component: Pattern2
 		},
 		{
-			name: 'Pattern 3: Size Scale',
-			description: 'Pattern mit Größen-Skalierung und Dreiecken',
+			name: 'Farbe Verändern',
+			description: 'Dreieck-Pattern Farbe anpassen',
 			component: Pattern3
 		}
+		,
+		{
+			name: 'Farbe & Form',
+			description: 'Dreieck-Pattern Farbe und Form anpassen',
+			component: Pattern4
+		}
 	];
-
-	let selectedPattern = $state(2); // Standardmäßig Pattern 3 ausgewählt
+	let selectedPattern = $state(0); // Standardmäßig Pattern 1 ausgewählt
 	let SelectedPattern = $derived(patterns[selectedPattern].component);
 </script>
 
@@ -54,62 +60,3 @@
 		<SelectedPattern />
 	</main>
 </div>
-
-<style>
-	.app-container {
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
-		width: 100vw;
-		background: #f0f0f0;
-	}
-
-	.app-main {
-		display: flex;
-		flex: 1;
-		overflow: hidden;
-		
-	}
-
-	.sidebar-left {
-		width: 250px;
-		background-color: #f0f0f0;
-		padding: 0px;
-		display: flex;
-		flex-direction: column;
-		gap: 0px;
-		overflow-y: auto;
-	}
-
-	.sidebar-left-item {
-		padding: 15px;
-		background-color: white;
-		border: 1px solid #ddd;
-		border-radius: 0px;
-		cursor: pointer;
-		text-align: left;
-		font-size: 14px;
-		font-weight: 500;
-		transition: all 0.2s ease;
-	}
-
-	.sidebar-left-item:hover {
-		background-color: #f0f0f0;
-		border-color: #999;
-	}
-
-	.sidebar-left-item.selected {
-		background-color: #007acc;
-		color: white;
-		border-color: #005a9e;
-	}
-
-	.sidebar-left-description {
-		margin-top: 10px;
-		padding-top: 10px;
-		border-top: 1px solid rgba(255, 255, 255, 0.3);
-		font-size: 12px;
-		font-weight: normal;
-		opacity: 0.9;
-	}
-</style>
