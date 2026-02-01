@@ -2,8 +2,7 @@
 	import chroma from "chroma-js";
 	import Slider from "$lib/ui/Slider.svelte";
 
-	const squareCount = 10;
-	const squareSize = 1000 / squareCount;
+
 
 	let offset = $state(0);
 	let offset2 = $state(0);
