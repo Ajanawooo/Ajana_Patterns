@@ -201,7 +201,7 @@
 		min={0}
 		max={360}
 		step={1}
-		label="Farbton (Hue)"
+		label="Hintergrundfarbe"
 	/>
 
 	<Slider

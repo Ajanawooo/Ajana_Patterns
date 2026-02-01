@@ -18,7 +18,7 @@
 		},
 		{
 			name: 'Form Verändern',
-			description: 'Dreieck-Pattern mit Skalierung, Stauchung und Streckung',
+			description: 'Dreieck-Pattern mit Streckung in X- und Y-Richtung',
 			component: Pattern2
 		},
 		{
