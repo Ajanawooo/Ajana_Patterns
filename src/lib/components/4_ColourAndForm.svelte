@@ -223,8 +223,8 @@
 	/>
 	<Slider
 		bind:value={stauchen2}
-		min={-50}
-		max={100}
+		min={-100}
+		max={50}
 		step={1}
 		label="Horizontal Strecken Rechts"
 		snapValues={[-50, -25, 0, 25, 50, 75, 100]}

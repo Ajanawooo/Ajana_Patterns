@@ -195,7 +195,7 @@
 		label="X Verschiebung"
 	/>
 	<hr />
-	<h3>Hintergrund Farbanpassung</h3>
+	<h3>Farbanpassung</h3>
 	<Slider
 		bind:value={hueBackground}
 		min={0}
